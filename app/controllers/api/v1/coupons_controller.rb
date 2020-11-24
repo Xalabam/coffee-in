@@ -23,6 +23,8 @@ before_action :set_coupon, only: [:show, :destroy]
   end
 
   def destroy
+    @coupon.destroy
+    head :no_content
   end
 
   private

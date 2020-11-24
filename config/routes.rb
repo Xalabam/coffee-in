@@ -13,4 +13,6 @@ Rails.application.routes.draw do
       resources :claims, only: [:index, :create, :destroy]
     end
   end
+
+  post '/login', to: 'login#login'
 end

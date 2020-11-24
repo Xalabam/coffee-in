@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   get "/users/id/coupons", to: "coupons#my_coupons", as: 'my_coupons'
 
+  resources :claims, only: [:index, :create, :destroy]
 end

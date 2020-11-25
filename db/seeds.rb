@@ -19,7 +19,7 @@ Coupon.destroy_all
     name: Faker::Name.name
     )
   coupon = Coupon.create!(
-    name: Faker::Marketing.buzzwords,
+    name: Faker::Dessert.flavor,
     validity: Faker::Date.forward(days: 10),
     offer: Faker::Coffee.blend_name,
     address: Faker::Address.street_address,

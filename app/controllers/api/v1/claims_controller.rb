@@ -1,4 +1,6 @@
 class Api::V1::ClaimsController < ApplicationController
+skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+
   def create
     @claim = Claim.new(claim_params)
     if @claim.save
@@ -8,11 +10,13 @@ class Api::V1::ClaimsController < ApplicationController
     end
   end
 
-  def index
-    @claims = Claim.all
+  def my_claims
+    @claims = Claim.where(user_id: params[:id])
+    render json: { claims: @claims, status: :success }
   end
 
   def destroy
+    @claim = Claim.find(params[:id])
     @claim.destroy
     head :no_content
   end
@@ -24,6 +28,6 @@ class Api::V1::ClaimsController < ApplicationController
   end
 
   def render_error
-    render json: { error: @coupon.errors.full_messages }
+    render json: { error: @claim.errors.full_messages }
   end
 end

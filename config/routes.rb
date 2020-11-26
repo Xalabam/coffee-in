@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resources :coupons, only: [:index, :show, :create, :destroy]
-      get "/users/id/coupons", to: "coupons#my_coupons", as: 'my_coupons'
+      get "/users/:id/coupons", to: "coupons#my_coupons", as: 'my_coupons'
     end
   end
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :claims, only: [:index, :create, :destroy]
+      resources :claims, only: [:create, :destroy]
+      get "/users/:id/claims", to: "claims#my_claims", as: 'my_claims'
     end
   end
 

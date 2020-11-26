@@ -9,7 +9,7 @@
 require 'faker'
 
 Coupon.destroy_all
-
+User.destroy_all
 
 
 

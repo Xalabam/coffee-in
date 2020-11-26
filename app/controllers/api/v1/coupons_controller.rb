@@ -1,5 +1,6 @@
 class Api::V1::CouponsController < Api::V1::BaseController
 before_action :set_coupon, only: [:show, :destroy]
+skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def index
     @coupons = Coupon.all
@@ -19,12 +20,14 @@ before_action :set_coupon, only: [:show, :destroy]
   end
 
   def my_coupons
-    @coupons = Coupon.select(params[:user_id])
+    @coupons = Coupon.where(user_id: params[:id])
+    render json: { coupons: @coupons, status: :success }
   end
 
   def destroy
     @coupon.destroy
     head :no_content
+    render json: { status: :success }
   end
 
   private
@@ -38,6 +41,6 @@ before_action :set_coupon, only: [:show, :destroy]
   end
 
   def coupon_params
-    params.require(:coupon).permit(:name, :validity, :offer, :shop_name, :address, :shop_info, :contacts)
+    params.require(:coupon).permit(:user_id, :name, :validity, :offer, :shop_name, :address, :shop_info, :contacts)
   end
 end

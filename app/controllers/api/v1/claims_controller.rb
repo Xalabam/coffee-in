@@ -3,6 +3,7 @@ skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def create
     @claim = Claim.new(claim_params)
+    # debugger
     if @claim.save
       render json: { claim: @claim, status: :success }
     else
@@ -12,7 +13,7 @@ skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def my_claims
     @claims = Claim.where(user_id: params[:id])
-    render json: { claims: @claims, status: :success }
+    # render json: { claims: @claims, status: :success }
   end
 
   def destroy

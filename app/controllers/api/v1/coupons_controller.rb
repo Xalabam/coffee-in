@@ -27,7 +27,7 @@ skip_before_action :verify_authenticity_token, only: [:create, :destroy]
   def destroy
     @coupon.destroy
     head :no_content
-    render json: { status: :success }
+    # render json: { status: :success }
   end
 
   private

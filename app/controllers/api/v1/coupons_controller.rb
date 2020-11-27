@@ -3,7 +3,11 @@ before_action :set_coupon, only: [:show, :destroy]
 skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def index
+    if params[:query].present?
+      @coupons = Coupon.where("name ILIKE ?", "%#{params[:query]}%")
+    else
     @coupons = Coupon.all
+    end
     # render json: @coupons
   end
 
